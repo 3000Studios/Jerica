@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#070707">
+  <meta name="color-scheme" content="dark">
+  <meta name="description" content="Jerica's Study Hive — a mobile-first study dashboard for planning, focus, homework help, and progress.">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; img-src 'self' data:; media-src 'self' blob:; connect-src 'self' https://api.open-meteo.com https://geocoding-api.open-meteo.com; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/styles.css">
+  <title>jerica.pro — Study Hive</title>
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+  <div class="honey-edge honey-edge-left" aria-hidden="true"></div>
+  <div class="honey-edge honey-edge-right" aria-hidden="true"></div>
+
+  <header class="topbar" aria-label="Site header">
+    <a class="brand" href="#home" aria-label="jerica.pro home">
+      <span class="brand-crown" aria-hidden="true">♕</span>
+      <span>jerica<span class="brand-dot">.</span><strong>pro</strong></span>
+      <small>STUDY HIVE</small>
+    </a>
+    <div class="top-actions">
+      <button class="icon-btn" id="musicToggle" type="button" aria-pressed="true" aria-label="Toggle music">♫</button>
+      <button class="icon-btn" id="sfxToggle" type="button" aria-pressed="true" aria-label="Toggle sound effects">✦</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="screen lock-screen is-active" id="home" data-screen="lock" aria-labelledby="lockTitle">
+      <div class="hero-copy reveal">
+        <p class="eyebrow">SMALL GIRL <span>×</span> BIG PLANS</p>
+        <h1 id="lockTitle">Unlock your <em>Study Hive</em></h1>
+        <p>Swipe each honey dial. When the hive reads the right four numbers, it opens.</p>
+      </div>
+
+      <div class="inspo-strip reveal" aria-label="Jerica's inspiration">
+        <span class="patch patch-yellow">NIRVANA</span>
+        <span class="patch patch-red">GREEN DAY</span>
+        <span class="patch patch-green">TYPE O NEGATIVE</span>
+        <span class="patch patch-block">ROBLOX</span>
+      </div>
+
+      <div class="hive-stage reveal" aria-live="polite">
+        <div class="hive-glow" aria-hidden="true"></div>
+        <div class="hive-shell" id="hiveShell">
+          <div class="hive-handle" aria-hidden="true"></div>
+          <div class="hive-plaque">SWEETER<br>THINGS<br>AHEAD</div>
+          <div class="bee bee-a" aria-hidden="true">◆</div>
+          <div class="bee bee-b" aria-hidden="true">◆</div>
+          <div class="dial-bank" role="group" aria-label="Four digit hive combination">
+            <button class="dial" type="button" data-index="0" data-value="0" aria-label="First digit 0">
+              <span class="dial-prev">9</span><strong>0</strong><span class="dial-next">1</span>
+            </button>
+            <button class="dial" type="button" data-index="1" data-value="0" aria-label="Second digit 0">
+              <span class="dial-prev">9</span><strong>0</strong><span class="dial-next">1</span>
+            </button>
+            <button class="dial" type="button" data-index="2" data-value="0" aria-label="Third digit 0">
+              <span class="dial-prev">9</span><strong>0</strong><span class="dial-next">1</span>
+            </button>
+            <button class="dial" type="button" data-index="3" data-value="0" aria-label="Fourth digit 0">
+              <span class="dial-prev">9</span><strong>0</strong><span class="dial-next">1</span>
+            </button>
+          </div>
+          <div class="hive-core" aria-hidden="true">🐝</div>
+        </div>
+        <p class="code-readout">ENTER THE CODE <strong id="codeReadout">0000</strong></p>
+        <p class="swipe-hint"><span aria-hidden="true">↕</span> swipe dials • mouse wheel • arrow keys</p>
+      </div>
+
+      <div class="music-card reveal" id="musicCard">
+        <button class="play-btn" id="playBtn" type="button" aria-label="Play or pause Maybe I'll Try It">▶</button>
+        <div>
+          <strong>Maybe I’ll Try It</strong>
+          <span id="musicStatus">Ready for your first tap</span>
+        </div>
+        <div class="wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+      </div>
+
+      <div class="interaction-notes reveal" aria-label="Interaction features">
+        <span>iPhone-first</span><span>Swipe motion</span><span>Desktop hover glow</span><span>Sound FX</span>
+      </div>
+
+      <p class="fan-note">Fan-inspired music references only. jerica.pro is not affiliated with the bands or Roblox.</p>
+    </section>
+
+    <section class="warp-screen" id="warpScreen" aria-hidden="true">
+      <div class="warp-ring r1"></div><div class="warp-ring r2"></div><div class="warp-ring r3"></div>
+      <div class="warp-bee">🐝</div>
+      <p>THE HIVE OPENS…</p>
+    </section>
+
+    <section class="screen dashboard-screen" id="dashboard" data-screen="dashboard" aria-labelledby="dashTitle">
+      <div class="dashboard-head reveal">
+        <div>
+          <p class="eyebrow">MY STUDY HIVE</p>
+          <h2 id="dashTitle">Hey, Jerica.</h2>
+          <p>One small win at a time.</p>
+        </div>
+        <div class="avatar" aria-label="Jerica profile">J<span>♕</span></div>
+      </div>
+
+      <section class="widget-row reveal" aria-label="Time weather and calendar">
+        <article class="widget time-widget">
+          <span class="widget-label">RIGHT NOW</span>
+          <strong id="clock">--:--</strong>
+          <small id="dateLabel">Loading date…</small>
+        </article>
+        <article class="widget weather-widget">
+          <span class="widget-label">LOCAL WEATHER</span>
+          <strong><span id="weatherIcon">☀</span> <span id="temperature">--°</span></strong>
+          <small id="weatherText">Checking the sky…</small>
+        </article>
+        <button class="widget calendar-widget" id="calendarJump" type="button">
+          <span class="widget-label">CALENDAR</span>
+          <strong id="calendarDay">--</strong>
+          <small id="calendarMonth">This month</small>
+        </button>
+      </section>
+
+      <section class="section-block reveal" id="studyHall" aria-labelledby="subjectsTitle">
+        <div class="section-heading">
+          <div><p class="eyebrow">CHOOSE A ROOM</p><h3 id="subjectsTitle">Study Hall</h3></div>
+          <span class="bee-trail" aria-hidden="true">· · · 🐝</span>
+        </div>
+        <div class="subject-grid" id="subjectGrid">
+          <button class="subject-card" data-subject="math"><span>▦</span><strong>Math</strong><small>Practice • Skills</small></button>
+          <button class="subject-card" data-subject="reading"><span>▤</span><strong>ELA / Reading</strong><small>Read • Think</small></button>
+          <button class="subject-card" data-subject="writing"><span>✎</span><strong>Writing</strong><small>Plan • Create</small></button>
+          <button class="subject-card" data-subject="science"><span>⚗</span><strong>Science</strong><small>Ask • Test</small></button>
+          <button class="subject-card" data-subject="social"><span>◎</span><strong>Social Studies</strong><small>People • Places</small></button>
+          <button class="subject-card" data-subject="vocab"><span>ABC</span><strong>Vocabulary</strong><small>Words • Spelling</small></button>
+        </div>
+      </section>
+
+      <section class="planner-grid reveal" id="planner">
+        <article class="panel schedule-panel">
+          <div class="panel-head"><h3>Today’s Schedule</h3><button class="text-btn" id="addSchedule" type="button">+ Add</button></div>
+          <ol class="schedule-list" id="scheduleList"></ol>
+        </article>
+
+        <article class="panel assignments-panel">
+          <div class="panel-head"><h3>Assignment Tracker</h3><button class="text-btn" id="addAssignment" type="button">+ Add</button></div>
+          <div id="assignmentList" class="assignment-list"></div>
+        </article>
+
+        <article class="panel timer-panel">
+          <div class="panel-head"><h3>Focus Timer</h3><span class="pill">Pomodoro</span></div>
+          <div class="timer-ring"><span class="tiny-bee">🐝</span><strong id="timerDisplay">25:00</strong></div>
+          <div class="timer-actions"><button class="gold-btn" id="timerToggle" type="button">Start</button><button class="ghost-btn" id="timerReset" type="button">Reset</button></div>
+          <p>Focus creates freedom.</p>
+        </article>
+      </section>
+
+      <section class="mini-grid reveal">
+        <article class="mini-card streak-card"><span>🔥</span><strong><b id="streakCount">12</b> days</strong><small>Reading streak</small></article>
+        <article class="mini-card habits-card">
+          <strong>Habit Checklist</strong>
+          <label><input type="checkbox" data-habit="read"> Read 20 min</label>
+          <label><input type="checkbox" data-habit="homework"> Finish homework</label>
+          <label><input type="checkbox" data-habit="kind"> Do one kind thing</label>
+          <label><input type="checkbox" data-habit="water"> Drink water</label>
+        </article>
+        <article class="mini-card note-card">
+          <strong>Quick Note</strong>
+          <textarea id="quickNote" rows="5" maxlength="280" placeholder="Big ideas go here…"></textarea>
+        </article>
+        <article class="mini-card roblox-card">
+          <span class="block-face" aria-hidden="true">◼</span>
+          <strong>Roblox Break</strong>
+          <small>Study first. Reset. Create.</small>
+          <a class="mini-link" href="https://www.roblox.com/" target="_blank" rel="noopener noreferrer">Open Roblox ↗</a>
+        </article>
+      </section>
+
+      <section class="section-block reveal" aria-labelledby="resourcesTitle">
+        <div class="section-heading"><div><p class="eyebrow">FREE + TRUSTED</p><h3 id="resourcesTitle">Learning Sources</h3></div></div>
+        <div class="resource-grid">
+          <a href="https://inspire.gadoe.org/" target="_blank" rel="noopener noreferrer"><b>GA</b><span>Georgia Inspire</span><small>Standards + resources</small></a>
+          <a href="https://www.khanacademy.org/" target="_blank" rel="noopener noreferrer"><b>K</b><span>Khan Academy</span><small>Math + practice</small></a>
+          <a href="https://www.readworks.org/" target="_blank" rel="noopener noreferrer"><b>R</b><span>ReadWorks</span><small>Reading passages</small></a>
+          <a href="https://www.ck12.org/student/" target="_blank" rel="noopener noreferrer"><b>12</b><span>CK-12</span><small>Science + skills</small></a>
+          <a href="https://www.coreknowledge.org/curriculum/" target="_blank" rel="noopener noreferrer"><b>CK</b><span>Core Knowledge</span><small>Free curriculum</small></a>
+          <a href="https://www.pbslearningmedia.org/" target="_blank" rel="noopener noreferrer"><b>PBS</b><span>LearningMedia</span><small>Videos + lessons</small></a>
+        </div>
+      </section>
+
+      <section class="support-grid reveal">
+        <article class="panel ask-panel">
+          <div class="panel-head"><h3>Ask the Hive</h3><span class="pill">Study helper</span></div>
+          <p id="helperReply">Pick what you need. I’ll give you a study move without doing the thinking for you.</p>
+          <div class="quick-prompts">
+            <button type="button" data-help="explain">Explain a hard problem</button>
+            <button type="button" data-help="paragraph">Plan a paragraph</button>
+            <button type="button" data-help="quiz">Quiz me</button>
+            <button type="button" data-help="stuck">I’m stuck</button>
+          </div>
+        </article>
+
+        <article class="panel dad-panel">
+          <div class="dad-status"><span class="online-dot"></span><div><h3>Ping Dad</h3><small>Ask for help fast</small></div></div>
+          <p>Send a ready-made “I need help” message through the iPhone share sheet.</p>
+          <button class="gold-btn" id="pingDad" type="button">Ping Dad</button>
+        </article>
+
+        <article class="panel mood-panel">
+          <h3>How are you feeling?</h3>
+          <div class="moods" role="group" aria-label="Mood check in">
+            <button type="button" data-mood="Great">😄<small>Great</small></button>
+            <button type="button" data-mood="Okay">🙂<small>Okay</small></button>
+            <button type="button" data-mood="Stuck">😕<small>Stuck</small></button>
+            <button type="button" data-mood="Tired">😴<small>Tired</small></button>
+          </div>
+          <p id="moodMessage">Check in with yourself. Then pick the next tiny step.</p>
+        </article>
+      </section>
+
+      <section class="rewards-panel reveal">
+        <div><p class="eyebrow">REWARDS + PROGRESS</p><h3>Fill the honey jars</h3></div>
+        <div class="jars" id="rewardJars">
+          <button type="button" data-reward="Study Hustle"><span class="jar-fill" style="--fill:72%"></span><b>Study Hustle</b><small>+50</small></button>
+          <button type="button" data-reward="Kind Heart"><span class="jar-fill" style="--fill:55%"></span><b>Kind Heart</b><small>+25</small></button>
+          <button type="button" data-reward="Big Effort"><span class="jar-fill" style="--fill:61%"></span><b>Big Effort</b><small>+25</small></button>
+          <button type="button" data-reward="Curiosity"><span class="jar-fill" style="--fill:43%"></span><b>Curiosity</b><small>+50</small></button>
+        </div>
+      </section>
+
+      <section class="band-card reveal" aria-label="Music-inspired style">
+        <p class="eyebrow">GRUNGE ROOTS • BRIGHTER TOMORROWS</p>
+        <div><span>NIRVANA</span><span>GREEN DAY</span><span>TYPE O NEGATIVE</span></div>
+        <p>Original fan-inspired collage energy. No copied cover art or official logos.</p>
+      </section>
+    </section>
+  </main>
+
+  <nav class="bottom-nav" id="bottomNav" aria-label="Study Hive navigation" hidden>
+    <button type="button" data-target="dashboard" class="is-current"><span>⌂</span>Hive</button>
+    <button type="button" data-target="studyHall"><span>⌘</span>Study</button>
+    <button type="button" data-target="planner"><span>✓</span>Plan</button>
+    <button type="button" data-target="resourcesTitle"><span>☆</span>Explore</button>
+  </nav>
+
+  <dialog class="subject-dialog" id="subjectDialog">
+    <button class="dialog-close" id="dialogClose" type="button" aria-label="Close subject room">×</button>
+    <p class="eyebrow" id="dialogEyebrow">STUDY ROOM</p>
+    <h2 id="dialogTitle">Subject</h2>
+    <p id="dialogIntro"></p>
+    <div class="lesson-stack" id="lessonStack"></div>
+    <div class="dialog-links" id="dialogLinks"></div>
+  </dialog>
+
+  <dialog class="entry-dialog" id="entryDialog">
+    <form method="dialog" id="entryForm">
+      <button class="dialog-close" value="cancel" type="submit" aria-label="Close">×</button>
+      <p class="eyebrow" id="entryEyebrow">ADD ITEM</p>
+      <h2 id="entryTitle">Add</h2>
+      <label>Title<input id="entryName" name="name" maxlength="80" required></label>
+      <label id="entryMetaLabel">Time / due date<input id="entryMeta" name="meta" maxlength="40" required></label>
+      <div class="dialog-actions"><button class="ghost-btn" value="cancel" type="submit">Cancel</button><button class="gold-btn" id="entrySave" value="default" type="submit">Save</button></div>
+    </form>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <div class="tap-for-music" id="tapForMusic" hidden>Tap anywhere to start “Maybe I’ll Try It” ♫</div>
+
+  <audio id="themeAudio" preload="metadata" loop>
+    <source src="/assets/maybe-ill-try-it.mp3" type="audio/mpeg">
+  </audio>
+  <script src="/app.js" defer></script>
+</body>
+</html>
