@@ -12,26 +12,28 @@ concurrency:
 
 permissions:
   contents: read
-  deployments: write
 
 jobs:
   deploy:
     name: Deploy to Cloudflare
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout main
-        uses: actions/checkout@v6
-
-      - name: Verify production branch
+      - name: Fetch production source
         shell: bash
         run: |
-          test "$GITHUB_REF_NAME" = "main"
+          set -euo pipefail
+          git clone --depth=1 --branch main "https://github.com/${GITHUB_REPOSITORY}.git" site
+          cd site
           test "$(git branch --show-current)" = "main"
 
       - name: Deploy Worker + static assets
-        uses: cloudflare/wrangler-action@v3
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: deploy
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+        shell: bash
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          set -euo pipefail
+          test -n "$CLOUDFLARE_API_TOKEN"
+          test -n "$CLOUDFLARE_ACCOUNT_ID"
+          cd site
+          npx --yes wrangler@latest deploy
