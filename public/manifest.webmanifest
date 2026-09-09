@@ -1,0 +1,18 @@
+{
+  "name": "Jerica Study Hive",
+  "short_name": "Study Hive",
+  "description": "Jerica's mobile-first Study Hive for planning, focus, learning and progress.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#070707",
+  "theme_color": "#070707",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
