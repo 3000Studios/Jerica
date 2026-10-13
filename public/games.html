@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Arcade — jerica.pro | Skate Dash, Beat Tap, Memory Match, Note Highway</title>
+<meta name="description" content="Four free games that live right inside jerica.pro: a skate-rink dodger, a rhythm tap game, memory match, and a falling-notes music game. No downloads, no sign-ups.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="The Arcade — jerica.pro">
+<meta property="og:description" content="Skate Dash, Beat Tap, Memory Match and Note Highway. Play right in the browser.">
+<meta property="og:url" content="https://jerica.pro/games.html">
+<meta property="og:image" content="https://jerica.pro/og.png">
+<meta name="theme-color" content="#141418">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<header class="site-head" id="site-head"></header>
+<div class="checker" aria-hidden="true"></div>
+
+<section class="wrap" style="padding-top:44px">
+  <h1 class="sec-title">🎮 The <span class="hl">Arcade</span></h1>
+  <p class="sec-sub">Four games, zero downloads, zero sign-ups. Your best scores are saved on <b>your</b> device only — nobody else can see them. Bring a friend and take turns: loser refills the snack bowl.</p>
+
+  <!-- SKATE DASH -->
+  <div class="game" id="skate">
+    <div class="game-head">
+      <h3>🛹 SKATE DASH</h3>
+      <span class="keys">TAP / CLICK / <span class="kbd">SPACE</span> to ollie</span>
+    </div>
+    <div class="game-stage"><canvas id="skate-canvas" width="560" height="300" aria-label="Skate Dash game"></canvas></div>
+    <div class="hud"><span>SCORE <b id="skate-score">0</b>m</span><span>BEST <b id="skate-best">0</b>m</span><span class="msg" id="skate-msg">Press START, then tap to jump the cracks, cones and rails!</span></div>
+    <div class="game-ctl"><button class="btn" id="skate-start">▶ START</button></div>
+  </div>
+
+  <!-- BEAT TAP -->
+  <div class="game" id="beat">
+    <div class="game-head">
+      <h3>🥁 BEAT TAP</h3>
+      <span class="keys">TAP the pads — or keys <span class="kbd">1</span><span class="kbd">2</span><span class="kbd">3</span><span class="kbd">4</span> — when the ring closes in</span>
+    </div>
+    <div class="game-stage"><canvas id="beat-canvas" width="560" height="340" aria-label="Beat Tap rhythm game"></canvas></div>
+    <div class="hud"><span>SCORE <b id="beat-score">0</b></span><span>COMBO <b id="beat-combo">0</b></span><span>BEST <b id="beat-best">0</b></span><span class="msg" id="beat-msg">An original beat, generated live. Tap right on it!</span></div>
+    <div class="game-ctl"><button class="btn pink" id="beat-start">▶ START THE BEAT</button></div>
+  </div>
+
+  <!-- MEMORY MATCH -->
+  <div class="game" id="memory">
+    <div class="game-head">
+      <h3>🃏 MEMORY MATCH</h3>
+      <span class="keys">CLICK / TAP the cards — find all 8 pairs</span>
+    </div>
+    <div class="mem-grid" id="mem-grid" role="group" aria-label="Memory match board"></div>
+    <div class="hud"><span>MOVES <b id="mem-moves">0</b></span><span>PAIRS <b id="mem-pairs">0</b>/8</span><span>BEST <b id="mem-best">—</b></span><span class="msg" id="mem-msg">Flip two cards. Match the icons!</span></div>
+    <div class="game-ctl"><button class="btn yellow" id="mem-start">↻ NEW GAME</button></div>
+  </div>
+
+  <!-- NOTE HIGHWAY -->
+  <div class="game" id="highway">
+    <div class="game-head">
+      <h3>🎸 NOTE HIGHWAY</h3>
+      <span class="keys">Keys <span class="kbd">D</span><span class="kbd">F</span><span class="kbd">J</span><span class="kbd">K</span> or TAP the lanes when notes hit the line</span>
+    </div>
+    <div class="game-stage"><canvas id="hw-canvas" width="560" height="380" aria-label="Note Highway music game"></canvas></div>
+    <div class="hud"><span>SCORE <b id="hw-score">0</b></span><span>COMBO <b id="hw-combo">0</b></span><span>BEST <b id="hw-best">0</b></span><span class="msg" id="hw-msg">Shred the falling notes on an original riff. Sound on!</span></div>
+    <div class="game-ctl"><button class="btn" id="hw-start">▶ START SHREDDING</button></div>
+  </div>
+
+  <div class="note">💛 <b>Two-player mode:</b> every game here is pass-and-play. Finish a run, pass the device, beat the score. House rules are in the <a href="/friends.html">Friends Zone</a>.</div>
+</section>
+
+<footer id="site-foot"></footer>
+<script src="/app.js"></script>
+<script src="/games.js"></script>
+</body>
+</html>
