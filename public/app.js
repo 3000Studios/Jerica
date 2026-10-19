@@ -13,8 +13,8 @@
     {href:'/videos.html',label:'Videos',    match:function(p){return p.indexOf('videos')>-1;}},
     {href:'/about.html',label:'About',      match:function(p){return p.indexOf('about')>-1;}}
   ];
-  function navLinks(cls){
-    return NAV.map(function(n){
+  function navLinks(homeOnly){
+    return NAV.filter(function(n){ return !homeOnly || n.href === '/'; }).map(function(n){
       var cur = n.match(path) ? ' aria-current="page"' : '';
       return '<a href="'+n.href+'"'+cur+'>'+n.label+'</a>';
     }).join('');
@@ -39,7 +39,7 @@
     head.innerHTML =
       '<div class="head-in">' +
       '<a class="logo" href="/" aria-label="jerica.pro — home">JER<span class="alt">I</span>CA.PRO 🦇</a>' +
-      '<nav class="main-nav" aria-label="Main pages">' + navLinks() + '</nav>' +
+      '<nav class="main-nav" aria-label="Main pages">' + navLinks(true) + '</nav>' +
       '<button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="popout">' +
         '<span class="bars" aria-hidden="true"><i></i><i></i><i></i></span></button>' +
       '</div>';
@@ -63,35 +63,12 @@
     pop.addEventListener('click', function(e){ if(e.target.hasAttribute('data-close')) setPop(false); });
     document.addEventListener('keydown', function(e){ if(e.key==='Escape') setPop(false); });
   }
-  /* ----- footer clip: one official Nirvana video per page (YouTube embed, privacy-enhanced) ----- */
-  var CLIPS = {
-    home:    {id:'hTWKbfoikeg', t:'Smells Like Teen Spirit'},
-    study:   {id:'vabnZ9-ex7o', t:'Come As You Are'},
-    music:   {id:'pkcJEvMcnEg', t:'Lithium'},
-    videos:  {id:'PbgKEjNBHqM', t:'In Bloom'},
-    about:   {id:'fregObNcHC8', t:'The Man Who Sold The World (MTV Unplugged)'},
-    games:   {id:'aWmkuH1k7uA', t:'All Apologies (MTV Unplugged)'},
-    studio:  {id:'AhcttcXcRYY', t:'About A Girl (MTV Unplugged)'},
-    friends: {id:'hEMm7gxBYSc', t:'Where Did You Sleep Last Night (MTV Unplugged)'}
-  };
-  function pageKey(){
-    var m = path.match(/\/(study|music|videos|about|games|studio|friends)(\.html)?$/);
-    return m ? m[1] : 'home';
-  }
-  function clipHTML(){
-    var c = CLIPS[pageKey()];
-    if(!c) return '';
-    return '<div class="clip reveal"><div class="clip-txt"><span class="tag">FOOTER CLIP · NIRVANA</span>' +
-      '<h3>' + c.t + '</h3><p class="dim">Official video from Nirvana\u2019s YouTube channel. Tap to play — the site music pauses.</p></div>' +
-      '<div class="clip-frame" id="clipFrame"><button class="clip-play" type="button" data-id="' + c.id + '" data-t="' + c.t + '" aria-label="Play Nirvana: ' + c.t + '"' +
-      ' style="background-image:url(https://i.ytimg.com/vi/' + c.id + '/hqdefault.jpg)"><span aria-hidden="true">▶</span></button></div></div>';
-  }
 
 
   /* ----- footer ----- */
   var foot = document.getElementById('site-foot');
   if(foot){
-    foot.innerHTML = clipHTML() + '<div class="foot-in">' +
+    foot.innerHTML = '<div class="foot-in">' +
       '<div><h3>JERICA.PRO</h3><p class="dim">Games, makers, study tools and loud music.</p></div>' +
       '<div><h3>THIS SITE</h3><ul>' +
       '<li><a href="/">Home</a></li><li><a href="/study.html">Study Hive</a></li>' +
@@ -101,22 +78,8 @@
       '</div>' +
       '<p class="foot-fine">🔒 No public accounts, no sign-ups, no uploads. The Friends Message Board is invite-only and text-only, and its messages auto-delete after 30 days. ' +
       'Everything you make lives on your own device. Ads, when shown, are set to child-directed / non-personalized mode. ' +
-      'Songs: “Entertain Us” &amp; “Motel Television.”</p>';
+      'Background videos: official Nirvana music videos, played from YouTube.</p>';
   }
-  /* footer clip: swap the thumbnail for the real player only when tapped */
-  document.addEventListener('click', function(e){
-    var b = e.target.closest ? e.target.closest('.clip-play') : null;
-    if(!b) return;
-    var id = b.getAttribute('data-id'), t = b.getAttribute('data-t');
-    var f = document.createElement('iframe');
-    f.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0&modestbranding=1&playsinline=1';
-    f.title = 'Nirvana: ' + t;
-    f.setAttribute('allow', 'autoplay; encrypted-media; picture-in-picture; fullscreen');
-    f.setAttribute('allowfullscreen', '');
-    f.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
-    b.parentNode.replaceChild(f, b);
-    var a = document.getElementById('plAudio'); if(a) a.pause();
-  });
 
 
   /* ----- scroll reveal ----- */
@@ -143,75 +106,82 @@
     btn.appendChild(rip);
     setTimeout(function(){ rip.remove(); }, 600);
   });
-
-  /* ----- MUSIC PLAYER ----- */
-  var TRACKS = [
-    {title:'Entertain Us',    src:'/audio/entertain-us.mp3'},
-    {title:'Motel Television',src:'/audio/motel-television.mp3'}
+  /* ----- NIRVANA BACKGROUND VIDEOS (every page) -----
+     Official videos from Nirvana's YouTube channel fill the whole background
+     in random order. Browsers only allow autoplay when muted, so they start
+     muted and the first tap anywhere turns the sound on. */
+  var VIDS = [
+    {id:'hTWKbfoikeg', t:'Smells Like Teen Spirit'},
+    {id:'vabnZ9-ex7o', t:'Come As You Are'},
+    {id:'pkcJEvMcnEg', t:'Lithium'},
+    {id:'PbgKEjNBHqM', t:'In Bloom'},
+    {id:'fregObNcHC8', t:'The Man Who Sold The World (MTV Unplugged)'},
+    {id:'aWmkuH1k7uA', t:'All Apologies (MTV Unplugged)'},
+    {id:'AhcttcXcRYY', t:'About A Girl (MTV Unplugged)'},
+    {id:'hEMm7gxBYSc', t:'Where Did You Sleep Last Night (MTV Unplugged)'}
   ];
-  var player = document.createElement('div');
-  player.className='player'; player.id='player';
-  player.setAttribute('role','region');
-  player.setAttribute('aria-label','Music player');
-  player.innerHTML =
-    '<div class="player-in">' +
-    '<div class="disc" aria-hidden="true">🎵</div>' +
-    '<div class="now"><div class="t" id="plTitle" aria-live="polite">Entertain Us</div>' +
-    '<div class="a">Plays on every page</div>' +
-    '<progress id="plProg" value="0" max="100" aria-label="Song progress"></progress></div>' +
-    '<button class="pbtn" id="plPrev" type="button" aria-label="Previous song">⏮</button>' +
-    '<button class="pbtn main" id="plPlay" type="button" aria-label="Play or pause the music">▶</button>' +
-    '<button class="pbtn" id="plNext" type="button" aria-label="Next song">⏭</button>' +
-    '<button class="sound-cta" id="plSound" type="button" aria-pressed="false">🔊 TAP FOR SOUND</button>' +
-    '</div>';
-  document.body.appendChild(player);
-  var audio = document.createElement('audio');
-  audio.id='plAudio'; audio.preload='metadata'; audio.setAttribute('playsinline','');
-  document.body.appendChild(audio);
+  var bag = [], vidIdx = -1, soundOn = false, ytReady = false, held = false;
+  function shuffled(){ var a = VIDS.slice(); for(var i = a.length - 1; i > 0; i--){ var j = Math.random() * (i + 1) | 0, t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+  function nextVid(){ if(!bag.length){ bag = shuffled(); if(cur && bag[0].id === cur.id) bag.push(bag.shift()); } return bag.shift(); }
+  var cur = nextVid();
+  document.body.classList.add('has-vbg');
+  document.body.setAttribute('data-noweb', '');
+  var vbg = document.createElement('div'); vbg.className = 'vbg'; vbg.setAttribute('aria-hidden', 'true');
+  var ifr = document.createElement('iframe');
+  ifr.title = 'Background video'; ifr.tabIndex = -1;
+  ifr.setAttribute('allow', 'autoplay; encrypted-media; picture-in-picture');
+  ifr.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+  ifr.src = 'https://www.youtube-nocookie.com/embed/' + cur.id + '?autoplay=1&mute=1&controls=0&disablekb=1&modestbranding=1&playsinline=1&rel=0&iv_load_policy=3&fs=0&enablejsapi=1&origin=' + encodeURIComponent(location.origin);
+  vbg.appendChild(ifr);
+  var shade = document.createElement('div'); shade.className = 'vbg-shade'; shade.setAttribute('aria-hidden', 'true');
+  document.body.insertBefore(shade, document.body.firstChild);
+  document.body.insertBefore(vbg, document.body.firstChild);
+  function cmd(func, args){ try{ ifr.contentWindow.postMessage(JSON.stringify({event:'command', func:func, args:args || []}), '*'); }catch(e){} }
+  ifr.addEventListener('load', function(){
+    try{ ifr.contentWindow.postMessage(JSON.stringify({event:'listening', id:1, channel:'widget'}), '*'); }catch(e){}
+    cmd('addEventListener', ['onStateChange']);
+    if(soundOn && !held){ cmd('unMute'); cmd('setVolume', [85]); }
+  });
 
-  var idx = 0, soundOn = false;
-  var elTitle = document.getElementById('plTitle'),
-      elProg  = document.getElementById('plProg'),
-      elPlay  = document.getElementById('plPlay'),
-      elSound = document.getElementById('plSound');
-
-  function load(i, autoplay){
-    idx = (i + TRACKS.length) % TRACKS.length;
-    audio.src = TRACKS[idx].src;
-    elTitle.textContent = TRACKS[idx].title;
-    elProg.value = 0;
-    if(autoplay) audio.play().catch(function(){});
-  }
+  var bar = document.createElement('div');
+  bar.className = 'vbar'; bar.id = 'vbar'; bar.setAttribute('role', 'region'); bar.setAttribute('aria-label', 'Background music videos');
+  bar.innerHTML = '<span class="vb-disc" aria-hidden="true">🎸</span>' +
+    '<span class="vb-now"><b>NIRVANA</b><span id="vbTitle" aria-live="polite"></span></span>' +
+    '<button class="vb-btn" id="vbSound" type="button" data-say="sound">🔇 TAP FOR SOUND</button>' +
+    '<button class="vb-btn" id="vbNext" type="button" data-say="next song" aria-label="Next song">⏭</button>';
+  document.body.appendChild(bar);
+  var elT = document.getElementById('vbTitle'), elS = document.getElementById('vbSound');
+  elT.textContent = cur.t;
   function setSound(on){
     soundOn = on;
-    audio.muted = !on;
-    elSound.setAttribute('aria-pressed', on ? 'true' : 'false');
-    elSound.textContent = on ? '🔊 SOUND ON!' : '🔊 TAP FOR SOUND';
-    elSound.classList.toggle('off', on);
+    elS.textContent = on ? '🔊 SOUND ON' : '🔇 TAP FOR SOUND';
+    elS.setAttribute('aria-pressed', on ? 'true' : 'false');
+    if(on && !held){ cmd('unMute'); cmd('setVolume', [85]); cmd('playVideo'); } else cmd('mute');
   }
-  audio.muted = true;               /* starts muted — browsers block autoplay sound */
-  load(0, true);                    /* starts playing (muted) on load */
-  audio.addEventListener('playing', function(){ player.classList.add('playing'); elPlay.textContent='⏸'; });
-  audio.addEventListener('pause',   function(){ player.classList.remove('playing'); elPlay.textContent='▶'; });
-  audio.addEventListener('ended',   function(){ load(idx+1, true); });
-  audio.addEventListener('timeupdate', function(){
-    if(audio.duration) elProg.value = Math.round(audio.currentTime / audio.duration * 100);
+  function play(v){ cur = v; elT.textContent = v.t; cmd('loadVideoById', [{videoId: v.id}]); if(soundOn && !held){ cmd('unMute'); } }
+  window.addEventListener('message', function(e){
+    if(!/youtube(-nocookie)?\.com$/.test((e.origin || '').replace(/^https?:\/\//, ''))) return;
+    var d; try{ d = typeof e.data === 'string' ? JSON.parse(e.data) : e.data; }catch(err){ return; }
+    if(!d) return;
+    var state = d.event === 'onStateChange' ? d.info : (d.info && typeof d.info.playerState === 'number' ? d.info.playerState : null);
+    if(state === 0) play(nextVid());
+    if(state === 1 && !ytReady){ ytReady = true; if(soundOn && !held){ cmd('unMute'); cmd('setVolume', [85]); } }
   });
-  elPlay.addEventListener('click', function(){
-    if(audio.paused){ if(!soundOn) setSound(true); audio.play().catch(function(){}); }
-    else audio.pause();
-  });
-  document.getElementById('plPrev').addEventListener('click', function(){ load(idx-1, true); });
-  document.getElementById('plNext').addEventListener('click', function(){ load(idx+1, true); });
-  elSound.addEventListener('click', function(){
-    setSound(!soundOn);
-    if(soundOn && audio.paused) audio.play().catch(function(){});
-  });
-  /* first tap/click anywhere turns the sound on (once) */
-  document.addEventListener('pointerdown', function firstTap(){
-    if(!soundOn){ setSound(true); if(audio.paused) audio.play().catch(function(){}); }
+  elS.addEventListener('click', function(){ setSound(!soundOn); });
+  document.getElementById('vbNext').addEventListener('click', function(){ play(nextVid()); });
+  /* first tap anywhere = sound on (the home gate handles its own entrance) */
+  document.addEventListener('pointerdown', function firstTap(e){
+    if(document.querySelector('.gate')) return;
+    if(e.target.closest && e.target.closest('#vbSound')) { document.removeEventListener('pointerdown', firstTap); return; }
+    if(!soundOn) setSound(true);
     document.removeEventListener('pointerdown', firstTap);
   });
+  window.JPBG = {
+    hold: function(on){ held = !!on; if(held) cmd('mute'); else if(soundOn){ cmd('unMute'); cmd('setVolume', [85]); cmd('playVideo'); } },
+    soundOn: function(){ setSound(true); },
+    playId: function(id){ for(var i = 0; i < VIDS.length; i++) if(VIDS[i].id === id){ play(VIDS[i]); setSound(true); return; } },
+    list: VIDS
+  };
 })();
 
 /* tiny helpers shared by games + makers (kept from the original build) */

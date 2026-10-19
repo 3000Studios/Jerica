@@ -267,3 +267,41 @@ html.gate-lock,html.gate-lock body{overflow:hidden}
 .bd-empty{color:var(--bone);font-family:var(--font-goth);font-size:1.2rem}
 .bd-rules{max-width:820px;font-size:.92rem;margin-top:.8rem}
 @media (prefers-reduced-motion:reduce){.bd-msg{animation:none}}
+
+/* ---------- NIRVANA BACKGROUND VIDEO (every page) ---------- */
+.vbg{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none;background:#000}
+.vbg iframe{position:absolute;top:50%;left:50%;width:100vw;height:56.25vw;min-height:100vh;min-width:177.78vh;border:0;transform:translate(-50%,-50%) scale(1.18)}
+.vbg-shade{position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:radial-gradient(ellipse at 50% 40%,rgba(4,5,11,.15),rgba(4,5,11,.62) 75%),linear-gradient(180deg,rgba(4,5,11,.35),rgba(4,5,11,.15) 40%,rgba(4,5,11,.55))}
+body.has-vbg .wallpaper,body.has-vbg .floaties,body.has-vbg #webCanvas{display:none}
+body.has-vbg{background:transparent}
+html{background:#000}
+body.has-vbg .card{background:linear-gradient(170deg,rgba(17,27,62,.82),rgba(6,10,24,.86));backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.video-hero{background:transparent!important;border-bottom:0}
+.video-hero .v-overlay{position:relative;min-height:auto;padding-top:3rem;background:linear-gradient(180deg,rgba(4,5,11,0),rgba(4,5,11,.55))}
+.vbar{position:fixed;left:50%;bottom:12px;transform:translateX(-50%);z-index:125;display:flex;align-items:center;gap:.55rem;max-width:calc(100vw - 20px);
+  padding:.45rem .55rem .45rem .8rem;border-radius:999px;background:rgba(4,6,14,.88);border:1px solid rgba(90,162,255,.35);
+  box-shadow:0 10px 30px rgba(0,0,0,.7),0 0 20px rgba(200,20,60,.25);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.vb-disc{font-size:1.3rem;animation:spin 3s linear infinite;filter:drop-shadow(0 0 6px rgba(200,20,60,.8))}
+@keyframes spin{to{transform:rotate(360deg)}}
+.vb-now{display:flex;flex-direction:column;min-width:0;line-height:1.1}
+.vb-now b{font-family:var(--font-display);font-weight:400;letter-spacing:2px;font-size:.95rem;color:#fff;text-shadow:0 0 10px rgba(200,20,60,.8)}
+.vb-now span{font-family:var(--font-goth);font-size:.95rem;color:var(--bone);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:42vw}
+.vb-btn{border:1px solid #000;border-radius:999px;padding:.45rem .8rem;cursor:pointer;font-family:var(--font-goth);font-size:1rem;letter-spacing:1px;color:#fff;
+  background:linear-gradient(180deg,#d61a47,#5e0a1c);box-shadow:0 3px 0 #000;white-space:nowrap}
+.vb-btn[aria-pressed="true"]{background:linear-gradient(180deg,#2f74df,#0c2559)}
+#vbNext{background:linear-gradient(180deg,#7d50cc,#2c1557)}
+.vamp-toggle{position:fixed;right:10px;top:84px;z-index:126;border:1px solid #000;border-radius:999px;padding:.4rem .75rem;cursor:pointer;
+  font-family:var(--font-goth);font-size:.95rem;letter-spacing:1px;color:#fff;background:linear-gradient(180deg,#1b2a60,#0a1230);box-shadow:0 3px 0 #000,0 0 14px rgba(90,162,255,.3)}
+.vamp-toggle[aria-pressed="false"]{opacity:.7}
+.track-list{list-style:none;padding:0;margin:0;display:grid;gap:.6rem}
+.track-list button{width:100%;text-align:left;display:flex;align-items:center;gap:.8rem;padding:.8rem 1rem;border-radius:12px;cursor:pointer;color:#eef1ff;
+  font-family:var(--font-goth);font-size:1.25rem;letter-spacing:.5px;border:1px solid rgba(90,162,255,.3);background:linear-gradient(170deg,rgba(20,30,70,.85),rgba(6,10,24,.9))}
+.track-list button:hover{border-color:rgba(200,20,60,.7);box-shadow:0 0 18px rgba(200,20,60,.3)}
+.track-list .n{font-family:var(--font-display);color:var(--blood);min-width:1.6em}
+.vid-thumbs{display:grid;gap:1rem;grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
+.vid-thumbs button{position:relative;aspect-ratio:16/9;border-radius:14px;overflow:hidden;cursor:pointer;border:1px solid rgba(90,162,255,.3);background:#000 center/cover no-repeat;
+  box-shadow:0 12px 30px rgba(0,0,0,.6)}
+.vid-thumbs button span{position:absolute;left:0;right:0;bottom:0;padding:.6rem .7rem;text-align:left;font-family:var(--font-goth);font-size:1.15rem;color:#fff;
+  background:linear-gradient(180deg,transparent,rgba(0,0,0,.85))}
+.vid-thumbs button:hover{border-color:rgba(200,20,60,.7);transform:translateY(-3px)}

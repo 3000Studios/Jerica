@@ -215,14 +215,14 @@
   window.addEventListener('pointerleave', function(){ ptr.on = false; });
   window.addEventListener('blur', function(){ ptr.on = false; });
   document.addEventListener('pointerdown', function(e){
-    if(RM) return;
+    if(RM || document.body.hasAttribute('data-noweb')) return;
     var t = e.target;
     if(t.closest && t.closest('a,button,input,select,textarea,canvas,.player,.gate,label,video,summary')) return;
     pluck(e.clientX, e.clientY, 9);
     for(var k = 0; k < 3; k++) spawnBat(e.clientX, e.clientY - k * 12, Math.random() < .5 ? 1 : -1, true);
   }, {passive:true});
-  resize();
-  if(!RM) requestAnimationFrame(loop);
+  var NOWEB = document.body.hasAttribute('data-noweb');
+  if(NOWEB){ cv.remove(); } else { resize(); if(!RM) requestAnimationFrame(loop); }
 
   /* =====================================================================
      THE GATE — home-page intro: black doors, lightning, original riff
@@ -379,14 +379,11 @@
       opened = true;
       timers.forEach(clearTimeout);
       try{ sessionStorage.setItem('jp:gate', '1'); }catch(e){}
-      var pa = document.getElementById('plAudio');
       if(withSound){
         var len = startRiff();
-        if(len && pa){
-          pa.pause();
-          var plPlay = document.getElementById('plPlay');
-          var resume = setTimeout(function(){ if(riff && !riff.stopped) pa.play().catch(function(){}); }, len * 1000);
-          if(plPlay) plPlay.addEventListener('click', function(){ clearTimeout(resume); stopRiff(); }, {once:true});
+        if(window.JPBG){
+          JPBG.soundOn();
+          if(len){ JPBG.hold(true); setTimeout(function(){ JPBG.hold(false); }, len * 1000); }
         }
       }
       flash(3);

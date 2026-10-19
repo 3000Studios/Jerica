@@ -1,0 +1,62 @@
+/* jerica.pro — THE HAUNTED ARCADE (home page) */
+body.arcade-page{overflow:hidden;padding-bottom:0;height:100dvh}
+.arcade{position:relative;height:var(--ah,calc(100dvh - 140px));overflow:hidden;isolation:isolate}
+#wall{position:absolute;inset:0;width:100%;height:100%;z-index:0;opacity:.42;mix-blend-mode:screen;pointer-events:none}
+#vortex{position:fixed;inset:0;width:100vw;height:100vh;z-index:150;pointer-events:none}
+
+.a-top{position:absolute;top:0;left:0;right:0;z-index:4;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.4rem 1rem;
+  padding:.55rem 14px .9rem;background:linear-gradient(180deg,rgba(2,3,8,.88),rgba(2,3,8,.55) 70%,rgba(2,3,8,0))}
+.a-kicker{display:block;font-family:var(--font-goth);color:var(--bone);font-size:.95rem;letter-spacing:2px;text-shadow:0 0 10px rgba(200,20,60,.7)}
+.a-title h1{margin:0;font-family:var(--font-display);font-size:clamp(1.5rem,5.4vw,2.7rem);line-height:1;color:#f0f3ff;letter-spacing:2px;
+  text-shadow:0 0 18px rgba(90,162,255,.6),3px 3px 0 #5e0a1c,5px 5px 0 rgba(0,0,0,.8);animation:titleIn .7s cubic-bezier(.2,1.5,.4,1)}
+@keyframes titleIn{from{opacity:0;transform:translateY(-14px) rotateX(70deg)}to{opacity:1;transform:none}}
+.a-hud{font-family:var(--font-goth);font-size:clamp(1.1rem,3.6vw,1.6rem);color:#fff;letter-spacing:.5px;text-shadow:0 0 12px rgba(200,20,60,.8),2px 2px 0 #000}
+.a-btns{display:flex;gap:.5rem}
+.a-btns .btn{padding:.5rem .9rem;font-size:1.08rem}
+.a-stage{position:absolute;left:0;right:0;bottom:0;top:var(--top,72px);z-index:2}
+.g-canvas{display:block;width:100%;height:100%;touch-action:none;cursor:crosshair}
+.a-help{position:absolute;left:0;right:0;bottom:4px;z-index:3;margin:0;padding:0 12px;text-align:center;font-size:.9rem;color:#c9d2ee;
+  text-shadow:0 1px 3px #000;pointer-events:none}
+
+/* crypt memory inside the stage */
+.a-crypt{position:absolute;inset:0;display:grid;place-items:center;padding:8px 12px 28px}
+.a-crypt .crypt{width:min(94vw,calc(var(--ah,600px) - var(--top,72px) - 50px));max-width:640px;gap:clamp(6px,1.4vw,12px)}
+.a-crypt .crypt button{font-size:clamp(1.6rem,7vw,3rem)}
+
+/* 3D obby */
+.obby-wrap{position:absolute;inset:0}
+.obby-canvas{display:block;width:100%;height:100%;touch-action:none}
+.obby-ui{position:absolute;inset:auto 0 26px 0;display:flex;justify-content:space-between;align-items:flex-end;padding:0 18px;pointer-events:none}
+.obby-ui .stick{pointer-events:auto;width:118px;height:118px;border-radius:50%;background:radial-gradient(circle,rgba(90,162,255,.18),rgba(0,0,0,.45));
+  border:2px solid rgba(143,198,255,.45);position:relative;touch-action:none}
+.obby-ui .knob{position:absolute;left:50%;top:50%;width:52px;height:52px;margin:-26px 0 0 -26px;border-radius:50%;
+  background:linear-gradient(180deg,#2f74df,#0c2559);border:1px solid #000;box-shadow:0 0 16px rgba(90,162,255,.6)}
+.obby-ui .jump{pointer-events:auto;width:96px;height:96px;border-radius:50%;font-family:var(--font-goth);font-size:1.4rem;letter-spacing:1px;color:#fff;cursor:pointer;
+  background:linear-gradient(180deg,#d61a47,#5e0a1c);border:1px solid #000;box-shadow:0 6px 0 #000,0 0 22px rgba(200,20,60,.6);touch-action:none}
+.obby-ui .jump:active{transform:translateY(4px);box-shadow:0 2px 0 #000}
+@media (hover:hover) and (pointer:fine){.obby-ui .stick{opacity:.55}}
+
+/* result: big 3D animated letters */
+.result{position:absolute;inset:0;z-index:20;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.6rem;padding:1rem 14px 2rem;text-align:center;
+  background:radial-gradient(ellipse at 50% 45%,rgba(20,8,30,.55),rgba(0,0,0,.88));opacity:0;transition:opacity .35s ease;overflow-y:auto}
+.result.in{opacity:1}
+.r-big,.r-joke{perspective:700px;margin:0}
+.r-big{font-family:var(--font-display);font-size:clamp(3rem,13vw,7.5rem);line-height:1;letter-spacing:3px}
+.r-joke{font-family:var(--font-goth);font-size:clamp(1.55rem,5.4vw,3.1rem);line-height:1.18;max-width:min(1100px,96vw);letter-spacing:.5px}
+.r-detail{margin:0;font-family:var(--font-goth);font-size:clamp(1rem,3vw,1.3rem);color:#cfd6ee}
+.result .w{display:inline-block;white-space:nowrap}
+.result .l{display:inline-block;transform-style:preserve-3d;animation:l3d .85s cubic-bezier(.2,1.45,.4,1) both,bob 2.6s ease-in-out infinite}
+.r-big.win .l,.r-joke.win .l{color:#fff4f6;text-shadow:1px 1px 0 #b3122e,2px 2px 0 #a0102a,3px 3px 0 #8b0d24,4px 4px 0 #750b1e,5px 5px 0 #5e0918,6px 6px 0 #470612,9px 12px 18px rgba(0,0,0,.85),0 0 26px rgba(255,40,80,.55)}
+.r-big.lose .l,.r-joke.lose .l{color:#eef6ff;text-shadow:1px 1px 0 #2f74df,2px 2px 0 #2a66c6,3px 3px 0 #2358ad,4px 4px 0 #1c4a93,5px 5px 0 #153b78,6px 6px 0 #0e2c5c,9px 12px 18px rgba(0,0,0,.85),0 0 26px rgba(90,162,255,.55)}
+@keyframes l3d{from{opacity:0;transform:translateZ(-420px) rotateX(-95deg) rotateY(35deg) scale(.4)}to{opacity:1;transform:none}}
+@keyframes bob{0%,100%{translate:0 0;rotate:x 0deg}50%{translate:0 -7px;rotate:x 14deg}}
+.r-btns{display:flex;gap:.7rem;flex-wrap:wrap;justify-content:center;margin-top:.6rem}
+
+@media (max-width:560px){
+  .a-btns .btn{padding:.45rem .7rem;font-size:.98rem}
+  .a-help{font-size:.8rem}
+}
+@media (prefers-reduced-motion:reduce){
+  .result .l{animation:none}
+  .a-title h1{animation:none}
+}
