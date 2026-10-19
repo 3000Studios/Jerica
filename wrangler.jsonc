@@ -1,11 +1,32 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "jerica-pro",
+  "main": "src/worker.js",
   "compatibility_date": "2026-09-09",
   "workers_dev": true,
   "assets": {
-    "directory": "./public"
+    "directory": "./public",
+    "binding": "ASSETS",
+    "run_worker_first": [
+      "/api/*"
+    ]
   },
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "BOARD",
+        "class_name": "Board"
+      }
+    ]
+  },
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_sqlite_classes": [
+        "Board"
+      ]
+    }
+  ],
   "routes": [
     {
       "pattern": "jerica.pro",

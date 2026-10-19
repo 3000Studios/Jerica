@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Friends Zone — jerica.pro | Play Together, Make Together</title>
-<meta name="description" content="The Friends Zone on jerica.pro: pass-and-play game challenges, maker battles, and the house rules. Everything is side-by-side fun — no accounts, no chat, nothing collected.">
+<meta name="description" content="The Friends Zone on jerica.pro: pass-and-play game challenges, maker battles, and the house rules. Everything is side-by-side fun — plus an invite-only message board for friends.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Friends Zone — jerica.pro">
 <meta property="og:description" content="Two-player challenges, maker battles, and house rules. Make it, download it, show it.">
@@ -22,7 +22,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="stylesheet" href="/styles.css">
-<link rel="stylesheet" href="/goth.css?v=3">
+<link rel="stylesheet" href="/goth.css?v=4">
 </head>
 <body>
 <header class="site-head" id="site-head"></header>
@@ -30,14 +30,14 @@
 
 <section class="wrap" style="padding-top:44px">
   <h1 class="sec-title">💛 Friends <span class="hl">Zone</span></h1>
-  <p class="sec-sub">This whole site is built for the "grab a friend and sit side by side" style of hanging out. There's no chat and no accounts here — on purpose. The fun is IRL: you make it, you download it, you show it off in person.</p>
+  <p class="sec-sub">This whole site is built for the "grab a friend and sit side by side" style of hanging out. The fun is IRL: you make it, you download it, you show it off in person. And when the crew is apart, the Haunted Message Board below is the place to say hey.</p>
 
   <h2 class="sec-title" style="font-size:1.6rem">🏠 The House Rules</h2>
   <div style="margin:22px 0 40px">
     <div class="rule"><div class="n">1</div><div><b>Pass and play.</b> One device, two players, take turns. Winners pick the next game. Losers get a rematch — always.</div></div>
     <div class="rule"><div class="n">2</div><div><b>Make it, download it, show it.</b> Creations save to the device, not to the internet. Trading designs happens face-to-face, like trading stickers. Because it basically is trading stickers.</div></div>
     <div class="rule"><div class="n">3</div><div><b>Keep it kind.</b> Hype each other's designs. Roast the games, never the person. If a deck design is ugly, the correct review is "bold choice" and a sticker swap.</div></div>
-    <div class="rule"><div class="n">4</div><div><b>Be safe out there.</b> This site never asks for your name, email, or anything personal — and you should never type personal info into random sites that do. Grown-ups you trust are the exception, not the internet.</div></div>
+    <div class="rule"><div class="n">4</div><div><b>Be safe out there.</b> Never share your last name, address, school, phone number or email — not here, not anywhere online. The message board removes that stuff automatically, but the best filter is you.</div></div>
   </div>
 
   <h2 class="sec-title" style="font-size:1.6rem">🏆 The Challenges</h2>
@@ -54,8 +54,35 @@
 
 </section>
 
+<section class="block wrap" id="board">
+  <h2 class="sec reveal">🕸️ The Haunted Message Board</h2>
+  <p class="lead reveal">Say hey and leave a message for the crew. Invite-only — use the friend code a parent gave you.</p>
+  <article class="card board-card reveal">
+    <div id="bdSignin">
+      <label class="bd-label" for="bdCode">Your friend code</label>
+      <div class="bd-row">
+        <input id="bdCode" type="text" inputmode="text" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="9" placeholder="ABCD-1234">
+        <button class="btn pink" id="bdSignBtn" type="button">🔑 ENTER THE CRYPT</button>
+      </div>
+      <p class="bd-note" id="bdSignMsg" aria-live="polite"></p>
+      <p class="dim bd-small">No code? Ask a grown-up who runs this site. Codes are only for invited friends.</p>
+    </div>
+    <div id="bdMain" hidden>
+      <div class="bd-top"><span>Signed in as <b id="bdMe"></b></span><button class="bd-link" id="bdOut" type="button">sign out</button></div>
+      <div class="bd-stickers" id="bdStickers" role="group" aria-label="Pick a sticker"></div>
+      <textarea id="bdText" maxlength="200" rows="3" placeholder="Say hey… (no last names, addresses, numbers or links)" aria-label="Your message"></textarea>
+      <div class="bd-row bd-row2"><span class="dim" id="bdCount">0 / 200</span><button class="btn pink" id="bdPost" type="button">🦇 POST IT</button></div>
+      <p class="bd-note" id="bdPostMsg" aria-live="polite"></p>
+      <ul class="bd-feed" id="bdFeed" aria-label="Messages"></ul>
+    </div>
+  </article>
+  <p class="dim bd-rules">Board rules: be kind · first names or nicknames only · links, emails, phone numbers and addresses get removed automatically · messages vanish after 30 days · a parent can delete anything.</p>
+</section>
+
+
 <footer id="site-foot"></footer>
-<script src="/app.js?v=20261019b"></script>
+<script src="/app.js?v=20261019c"></script>
 <script src="/goth.js?v=2" defer></script>
+<script src="/board.js?v=1" defer></script>
 </body>
 </html>

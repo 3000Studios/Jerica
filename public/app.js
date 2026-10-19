@@ -63,12 +63,35 @@
     pop.addEventListener('click', function(e){ if(e.target.hasAttribute('data-close')) setPop(false); });
     document.addEventListener('keydown', function(e){ if(e.key==='Escape') setPop(false); });
   }
+  /* ----- footer clip: one official Nirvana video per page (YouTube embed, privacy-enhanced) ----- */
+  var CLIPS = {
+    home:    {id:'hTWKbfoikeg', t:'Smells Like Teen Spirit'},
+    study:   {id:'vabnZ9-ex7o', t:'Come As You Are'},
+    music:   {id:'pkcJEvMcnEg', t:'Lithium'},
+    videos:  {id:'PbgKEjNBHqM', t:'In Bloom'},
+    about:   {id:'fregObNcHC8', t:'The Man Who Sold The World (MTV Unplugged)'},
+    games:   {id:'aWmkuH1k7uA', t:'All Apologies (MTV Unplugged)'},
+    studio:  {id:'AhcttcXcRYY', t:'About A Girl (MTV Unplugged)'},
+    friends: {id:'hEMm7gxBYSc', t:'Where Did You Sleep Last Night (MTV Unplugged)'}
+  };
+  function pageKey(){
+    var m = path.match(/\/(study|music|videos|about|games|studio|friends)(\.html)?$/);
+    return m ? m[1] : 'home';
+  }
+  function clipHTML(){
+    var c = CLIPS[pageKey()];
+    if(!c) return '';
+    return '<div class="clip reveal"><div class="clip-txt"><span class="tag">FOOTER CLIP · NIRVANA</span>' +
+      '<h3>' + c.t + '</h3><p class="dim">Official video from Nirvana\u2019s YouTube channel. Tap to play — the site music pauses.</p></div>' +
+      '<div class="clip-frame" id="clipFrame"><button class="clip-play" type="button" data-id="' + c.id + '" data-t="' + c.t + '" aria-label="Play Nirvana: ' + c.t + '"' +
+      ' style="background-image:url(https://i.ytimg.com/vi/' + c.id + '/hqdefault.jpg)"><span aria-hidden="true">▶</span></button></div></div>';
+  }
+
 
   /* ----- footer ----- */
   var foot = document.getElementById('site-foot');
   if(foot){
-    foot.innerHTML =
-      '<div class="foot-in">' +
+    foot.innerHTML = clipHTML() + '<div class="foot-in">' +
       '<div><h3>JERICA.PRO</h3><p class="dim">Games, makers, study tools and loud music.</p></div>' +
       '<div><h3>THIS SITE</h3><ul>' +
       '<li><a href="/">Home</a></li><li><a href="/study.html">Study Hive</a></li>' +
@@ -76,10 +99,25 @@
       '<li><a href="/about.html">About</a></li><li><a href="/games.html">The Arcade</a></li>' +
       '<li><a href="/studio.html">Maker Studio</a></li><li><a href="/friends.html">Friends Zone</a></li></ul></div>' +
       '</div>' +
-      '<p class="foot-fine">🔒 This site collects <b>nothing</b> — no accounts, no sign-ups, no comments, no uploads. ' +
+      '<p class="foot-fine">🔒 No public accounts, no sign-ups, no uploads. The Friends Message Board is invite-only and text-only, and its messages auto-delete after 30 days. ' +
       'Everything you make lives on your own device. Ads, when shown, are set to child-directed / non-personalized mode. ' +
       'Songs: “Entertain Us” &amp; “Motel Television.”</p>';
   }
+  /* footer clip: swap the thumbnail for the real player only when tapped */
+  document.addEventListener('click', function(e){
+    var b = e.target.closest ? e.target.closest('.clip-play') : null;
+    if(!b) return;
+    var id = b.getAttribute('data-id'), t = b.getAttribute('data-t');
+    var f = document.createElement('iframe');
+    f.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0&modestbranding=1&playsinline=1';
+    f.title = 'Nirvana: ' + t;
+    f.setAttribute('allow', 'autoplay; encrypted-media; picture-in-picture; fullscreen');
+    f.setAttribute('allowfullscreen', '');
+    f.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+    b.parentNode.replaceChild(f, b);
+    var a = document.getElementById('plAudio'); if(a) a.pause();
+  });
+
 
   /* ----- scroll reveal ----- */
   var revealEls = document.querySelectorAll('.reveal');
