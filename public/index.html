@@ -2,130 +2,54 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>jerica.pro — Goth Games, Dark Facts & Loud Music</title>
-<meta name="description" content="jerica.pro after dark: a spider-web live wallpaper, goth mini-games and dark facts, plus the Arcade, Maker Studio and Study Hive. No sign-ups, nothing collected.">
-<meta name="keywords" content="jerica.pro, goth games, dark facts, spider web, bats, kids games, study hive, maker studio">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<title>jerica.pro</title>
+<meta name="description" content="A living liquid aquarium. Touch the water, swirl the colors, and meet Chunk. Free, no sign-ups, nothing collected.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://jerica.pro/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="jerica.pro">
-<meta property="og:title" content="jerica.pro — enter if you dare">
-<meta property="og:description" content="Spider webs, bats, dark facts, goth mini-games and loud music. No sign-ups, nothing collected.">
+<meta property="og:title" content="jerica.pro — touch the water">
+<meta property="og:description" content="A living liquid aquarium. Touch the water and watch it bloom.">
 <meta property="og:url" content="https://jerica.pro/">
 <meta property="og:image" content="https://jerica.pro/og.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="jerica.pro — enter if you dare">
-<meta name="twitter:description" content="Spider webs, bats, dark facts, goth mini-games and loud music.">
-<meta name="twitter:image" content="https://jerica.pro/og.png">
-<meta name="theme-color" content="#04050b">
+<meta name="theme-color" content="#06243a">
+<meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="google-adsense-account" content="ca-pub-5800977493749262">
 <script>window.adsbygoogle=window.adsbygoogle||[];window.adsbygoogle.requestNonPersonalizedAds=1;</script>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5800977493749262" crossorigin="anonymous" data-tag-for-child-directed-treatment="1" data-tag-for-underage-treatment="1"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Caveat:wght@600;700&family=Metal+Mania&family=Pirata+One&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="manifest" href="/manifest.webmanifest">
-<link rel="stylesheet" href="/styles.css">
-<link rel="stylesheet" href="/goth.css?v=4">
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebSite","name":"jerica.pro","url":"https://jerica.pro/","description":"Goth mini-games, dark facts, games, maker tools and a study hive. No personal information is collected.","inLanguage":"en"}
-</script>
+<link rel="modulepreload" href="/vendor/three.module.js">
+<style>
+  html,body{margin:0;height:100%;overflow:hidden;background:#06243a;overscroll-behavior:none}
+  body{touch-action:none;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent;font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+  canvas{position:fixed;inset:0;width:100vw;height:100vh;display:block}
+  #scene{visibility:hidden;pointer-events:none}
+  #scene.fallback{visibility:visible;pointer-events:auto}
+  #gl{z-index:1}
+  #buddy{z-index:2;pointer-events:none}
+  #hint{position:fixed;left:50%;bottom:12%;transform:translateX(-50%);z-index:3;pointer-events:none;color:#eafcff;font-size:clamp(1rem,3.6vw,1.35rem);letter-spacing:.12em;
+    text-transform:uppercase;text-shadow:0 2px 12px rgba(0,30,50,.9);animation:breathe 2.6s ease-in-out infinite;transition:opacity .8s}
+  #hint.gone{opacity:0;animation:none}
+  @keyframes breathe{0%,100%{opacity:.55;transform:translateX(-50%) scale(1)}50%{opacity:1;transform:translateX(-50%) scale(1.06)}}
+  #toast{position:fixed;left:50%;top:14%;transform:translate(-50%,0) scale(.9);z-index:3;pointer-events:none;opacity:0;color:#fff;font-weight:800;
+    font-size:clamp(1.6rem,7vw,3.2rem);letter-spacing:.04em;text-shadow:0 0 22px rgba(120,220,255,.9),0 4px 0 rgba(0,40,70,.8)}
+  #toast.show{animation:toast 1.8s ease forwards}
+  @keyframes toast{0%{opacity:0;transform:translate(-50%,10px) scale(.8)}15%{opacity:1;transform:translate(-50%,0) scale(1.05)}70%{opacity:1}100%{opacity:0;transform:translate(-50%,-12px) scale(1)}}
+  #credit{position:fixed;right:8px;bottom:6px;z-index:3;pointer-events:none;color:rgba(220,245,255,.55);font-size:11px}
+  @media (prefers-reduced-motion:reduce){#hint{animation:none}}
+</style>
 </head>
 <body>
-<a class="skip-link" href="#main">Skip to the good stuff</a>
-<header class="site-head" id="site-head"></header>
-
-<main id="main">
-  <!-- VIDEO HEADER -->
-  <div class="video-hero">
-    <video autoplay muted loop playsinline poster="/media/entertain-us-poster.jpg" aria-label="Animated music visual for the song Entertain Us">
-      <source src="/media/entertain-us-loop.mp4" type="video/mp4">
-    </video>
-    <div class="v-overlay">
-      <div class="wrap" style="width:100%">
-        <span class="kicker">☾ enter if you dare ☾</span>
-        <h1 class="h-3d">JER<span class="alt">I</span>CA</h1>
-        <p class="v-sub">Spider webs, bats, dark facts, goth games and loud music — the lights are off and the volume is up. Touch the web and watch it move. Tap anywhere for sound. 🔊</p>
-        <div class="btn-row">
-          <a class="btn pink" href="#goth-games">🦇 GOTH GAMES</a>
-          <a class="btn" href="#dark-facts">🕯️ DARK FACTS</a>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="checker" aria-hidden="true"></div>
-
-  <section class="block wrap" id="goth-games">
-    <div class="sticker-row reveal" aria-hidden="true">
-      <span class="sticker s-n">STAY SPOOKY</span>
-      <span class="sticker s-p">BLACK IS A COLOR</span>
-      <span class="sticker s-y">CREEP IT REAL</span>
-      <span class="sticker s-b">VOLUME: UP</span>
-      <span class="sticker s-t">NO BORING ALLOWED</span>
-    </div>
-    <h2 class="sec reveal">🦇 Goth Games</h2>
-    <p class="lead reveal">Two quick games that live right here in the dark. Best scores stay on your own device.</p>
-    <div class="gg-grid">
-      <article class="card reveal">
-        <span class="tag">GAME 1 · 30 SECONDS</span>
-        <h3>Bat Swat</h3>
-        <p>The belfry just emptied out. Tap as many bats as you can before the clock runs out — the glowing blue ghost bats are worth 3.</p>
-        <div class="gg-hud"><span>Score <b id="bsScore">0</b></span><span>Time <b id="bsTime">30</b></span><span>Best <b id="bsBest">0</b></span></div>
-        <canvas class="batswat" id="batSwat" width="640" height="400" aria-label="Bat Swat game area: tap the bats"></canvas>
-        <div class="btn-row"><button class="btn pink" id="bsStart" type="button">🦇 START</button></div>
-      </article>
-      <article class="card reveal">
-        <span class="tag">GAME 2 · 8 PAIRS</span>
-        <h3>Crypt Memory</h3>
-        <p>Sixteen coffins, eight matching pairs of creepy things inside. Flip two at a time and clear the crypt in as few moves as possible.</p>
-        <div class="gg-hud"><span>Moves <b id="cmMoves">0</b></span><span>Pairs <b id="cmPairs">0</b>/8</span><span>Best <b id="cmBest">—</b></span></div>
-        <div class="crypt" id="crypt" role="group" aria-label="Crypt Memory coffins"></div>
-        <p class="gg-msg" id="cmMsg" aria-live="polite"></p>
-        <div class="btn-row"><button class="btn violet" id="cmReset" type="button">⚰️ NEW CRYPT</button></div>
-      </article>
-    </div>
-    <div class="btn-row reveal"><a class="btn cyan" href="/games.html">🎮 MORE IN THE ARCADE</a></div>
-  </section>
-
-  <section class="block wrap" id="dark-facts">
-    <h2 class="sec reveal">🕯️ Dark Facts</h2>
-    <article class="card reveal fact-card">
-      <span class="tag">DARK FACT <span id="factNum">1</span> / <span id="factTotal">20</span></span>
-      <p class="fact-box" id="darkFact" aria-live="polite">Summoning something spooky…</p>
-      <div class="btn-row"><button class="btn pink" id="nextFact" type="button">🔮 SUMMON ANOTHER</button></div>
-    </article>
-  </section>
-
-  <section class="block wrap">
-    <h2 class="sec reveal">⚰️ Play It. Study It. Make It.</h2>
-    <div class="cards c3">
-      <article class="card reveal"><span class="tag">4 GAMES</span><h3>The Arcade</h3><p>Skate Dash, Beat Tap, Memory Match and Note Highway. High scores live on your own device, so the rivalry with yourself never ends.</p><a class="btn violet" href="/games.html">ENTER THE ARCADE</a></article>
-      <article class="card reveal"><span class="tag">HOMEWORK, HANDLED</span><h3>Study Hive</h3><p>Flashcards that flip, a focus timer that actually helps, and a homework checklist that lives in your browser.</p><a class="btn yellow" href="/study.html">OPEN THE HIVE</a></article>
-      <article class="card reveal"><span class="tag">3 MAKERS</span><h3>Maker Studio</h3><p>Design an avatar, build a band poster, and create a custom skateboard deck — then download it and keep it forever.</p><a class="btn pink" href="/studio.html">OPEN THE STUDIO</a></article>
-    </div>
-  </section>
-
-  <section class="block wrap">
-    <h2 class="sec reveal">🕸️ Better With Friends</h2>
-    <div class="cards">
-      <article class="card reveal"><span class="tag">BRING A FRIEND</span><h3>Friends Zone</h3><p>Everything here is better with a friend next to you. The Friends Zone has the challenges, the house rules, and the two-player game plan.</p><a class="btn cyan" href="/friends.html">GRAB A FRIEND</a></article>
-    </div>
-  </section>
-
-  <section class="block wrap">
-    <h2 class="sec reveal">🎧 The Music On This Site</h2>
-    <p class="lead reveal">Two songs play on every page of this site: <b>“Entertain Us”</b> and <b>“Motel Television.”</b> The player lives at the bottom of your screen. Meet the songs on the Music page.</p>
-    <div class="btn-row reveal">
-      <a class="btn" href="/music.html">🎧 GO TO THE MUSIC PAGE</a>
-      <a class="btn violet" href="/videos.html">📺 WATCH THE VIDEOS</a>
-    </div>
-  </section>
-</main>
-
-<footer class="site-foot" id="site-foot"></footer>
-<script src="/app.js?v=20261019c" defer></script>
-<script src="/goth.js?v=2" defer></script>
+<canvas id="scene" aria-label="Aquarium with swimming fish"></canvas>
+<canvas id="gl" aria-label="Touch the water to make liquid ripples and color blooms. Double-tap to change the flow."></canvas>
+<canvas id="buddy" aria-hidden="true"></canvas>
+<div id="hint">touch the water</div>
+<div id="toast" aria-live="polite"></div>
+<div id="credit">Jazz: “Jazz Improvisation” by Alex McCulloch (CC0)</div>
+<script src="/aqua.js?v=1" defer></script>
+<script type="module" src="/buddy.js?v=1"></script>
 </body>
 </html>

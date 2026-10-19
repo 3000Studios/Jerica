@@ -1,1 +1,23 @@
-{"background_color":"#04050b","description":"Goth games, dark facts, makers and a study hive, with music on every page. No sign-ups, nothing collected.","display":"standalone","icons":[{"purpose":"any maskable","sizes":"any","src":"/favicon.svg","type":"image/svg+xml"},{"purpose":"any","sizes":"1200x630","src":"/og.png","type":"image/png"}],"name":"jerica.pro — Jerica's Corner","orientation":"portrait-primary","short_name":"jerica.pro","start_url":"/","theme_color":"#04050b"}
+{
+  "name": "jerica.pro",
+  "short_name": "jerica.pro",
+  "description": "A living liquid aquarium. Touch the water and watch it bloom.",
+  "start_url": "/",
+  "display": "fullscreen",
+  "orientation": "any",
+  "background_color": "#06243a",
+  "theme_color": "#06243a",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/og.png",
+      "sizes": "1200x630",
+      "type": "image/png"
+    }
+  ]
+}

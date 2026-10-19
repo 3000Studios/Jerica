@@ -11,18 +11,16 @@
       "/api/*"
     ]
   },
-  "durable_objects": {
-    "bindings": [
-      {
-        "name": "BOARD",
-        "class_name": "Board"
-      }
-    ]
-  },
   "migrations": [
     {
       "tag": "v1",
       "new_sqlite_classes": [
+        "Board"
+      ]
+    },
+    {
+      "tag": "v2",
+      "deleted_classes": [
         "Board"
       ]
     }
