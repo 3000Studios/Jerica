@@ -68,28 +68,17 @@
   var foot = document.getElementById('site-foot');
   if(foot){
     foot.innerHTML =
-      '<div class="td-promo reveal" id="thunderdome"><span class="big">⚡ THUNDERDOME</span>' +
-      '<span>Dad\u2019s game is coming — the big public launch lands <b>November 2, 2026</b>. Join the beta free:</span>' +
-      '<a class="btn pink" href="https://thunderdome.store">PLAY THE BETA</a></div>' +
       '<div class="foot-in">' +
-      '<div><h3>JERICA.PRO</h3><p class="dim">Jerica\u2019s corner of the internet — games, makers, study tools and loud music. Made by Jerica, for Jerica and her crew.</p></div>' +
+      '<div><h3>JERICA.PRO</h3><p class="dim">Games, makers, study tools and loud music.</p></div>' +
       '<div><h3>THIS SITE</h3><ul>' +
       '<li><a href="/">Home</a></li><li><a href="/study.html">Study Hive</a></li>' +
       '<li><a href="/music.html">Music</a></li><li><a href="/videos.html">Videos</a></li>' +
       '<li><a href="/about.html">About</a></li><li><a href="/games.html">The Arcade</a></li>' +
       '<li><a href="/studio.html">Maker Studio</a></li><li><a href="/friends.html">Friends Zone</a></li></ul></div>' +
-      '<div><h3>THE FAMILY EMPIRE</h3><ul>' +
-      '<li><a href="https://3000studios.vip">3000 Studios</a></li>' +
-      '<li><a href="https://www.youtube.com/@3000Studio">▶ YouTube — 3000 Studios</a></li>' +
-      '<li><a href="https://open.spotify.com/artist/6VVHgvCMlHO6Ah7dkAIlik">🎧 Spotify — 3000 Studios</a></li>' +
-      '<li><a href="https://jadon.pro">Jadon\u2019s Site — jadon.pro</a></li>' +
-      '<li><a href="https://swain.website">The Swain Standard</a></li>' +
-      '<li><a href="https://thunderdome.store">Thunderdome (the game)</a></li>' +
-      '<li><a href="https://boughtitonline.com">The 3000 Studios Store</a></li></ul></div>' +
       '</div>' +
       '<p class="foot-fine">🔒 This site collects <b>nothing</b> — no accounts, no sign-ups, no comments, no uploads. ' +
       'Everything you make lives on your own device. Ads, when shown, are set to child-directed / non-personalized mode. ' +
-      'Music: “Entertain Us” &amp; “Motel Television” by 3000 Studios (Dad\u2019s studio). Fan talk about bands is just fan talk — no band audio, lyrics or artwork.</p>';
+      'Songs: “Entertain Us” &amp; “Motel Television.”</p>';
   }
 
   /* ----- scroll reveal ----- */
@@ -125,12 +114,12 @@
   var player = document.createElement('div');
   player.className='player'; player.id='player';
   player.setAttribute('role','region');
-  player.setAttribute('aria-label','Music player — songs by 3000 Studios, Jerica\u2019s dad\u2019s studio');
+  player.setAttribute('aria-label','Music player');
   player.innerHTML =
     '<div class="player-in">' +
     '<div class="disc" aria-hidden="true">🎵</div>' +
     '<div class="now"><div class="t" id="plTitle" aria-live="polite">Entertain Us</div>' +
-    '<div class="a">3000 Studios · plays on every page</div>' +
+    '<div class="a">Plays on every page</div>' +
     '<progress id="plProg" value="0" max="100" aria-label="Song progress"></progress></div>' +
     '<button class="pbtn" id="plPrev" type="button" aria-label="Previous song">⏮</button>' +
     '<button class="pbtn main" id="plPlay" type="button" aria-label="Play or pause the music">▶</button>' +
