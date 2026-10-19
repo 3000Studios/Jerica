@@ -194,9 +194,9 @@ html.gate-lock,html.gate-lock body{overflow:hidden}
 .gate .ring{position:absolute;top:66%;width:clamp(44px,6.5vw,78px);aspect-ratio:1;border-radius:50%;
   border:5px solid #2b3142;box-shadow:0 0 0 2px #000,inset 0 0 0 2px #000,0 8px 14px rgba(0,0,0,.85)}
 .gate .door.l .ring{right:8%} .gate .door.r .ring{left:8%}
-.gate .skull{position:absolute;top:calc(66% - clamp(30px,4.6vw,54px));font-size:clamp(28px,4.2vw,50px);line-height:1;
+.gate .skull{position:absolute;top:calc(66% + clamp(7px,1vw,12px));font-size:clamp(24px,3.6vw,44px);line-height:1;
   filter:grayscale(1) brightness(.7) drop-shadow(0 0 8px rgba(90,162,255,.7))}
-.gate .door.l .skull{right:calc(8% + clamp(6px,1.2vw,14px))} .gate .door.r .skull{left:calc(8% + clamp(6px,1.2vw,14px))}
+.gate .door.l .skull{right:calc(8% + clamp(9px,1.4vw,16px))} .gate .door.r .skull{left:calc(8% + clamp(9px,1.4vw,16px))}
 .gate .flash{position:absolute;inset:0;z-index:3;pointer-events:none;opacity:0;mix-blend-mode:screen;
   background:radial-gradient(ellipse at 50% 22%,rgba(215,228,255,.62),rgba(120,150,255,.22) 48%,transparent 78%)}
 .gate .flash.on{opacity:1}
