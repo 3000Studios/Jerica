@@ -1,14 +1,1 @@
-{
-  "name": "jerica.pro — Jerica's Corner",
-  "short_name": "jerica.pro",
-  "description": "Jerica's corner: games, makers, loud music and skating. No sign-ups, no ads.",
-  "start_url": "/",
-  "display": "standalone",
-  "background_color": "#141418",
-  "theme_color": "#141418",
-  "orientation": "portrait-primary",
-  "icons": [
-    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" },
-    { "src": "/og.png", "sizes": "1200x630", "type": "image/png", "purpose": "any" }
-  ]
-}
+{"background_color":"#12101d","description":"Jerica's corner: games, makers, a study hive, skating — and Dad's songs (3000 Studios) playing on every page. No sign-ups, nothing collected.","display":"standalone","icons":[{"purpose":"any maskable","sizes":"any","src":"/favicon.svg","type":"image/svg+xml"},{"purpose":"any","sizes":"1200x630","src":"/og.png","type":"image/png"}],"name":"jerica.pro — Jerica's Corner","orientation":"portrait-primary","short_name":"jerica.pro","start_url":"/","theme_color":"#12101d"}

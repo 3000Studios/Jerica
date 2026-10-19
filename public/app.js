@@ -1,41 +1,193 @@
-/* jerica.pro shared chrome — header + footer injected so every page matches.
-   100% client-side. This site collects nothing and loads nothing from anywhere else. */
+/* jerica.pro — shared chrome + music player (2026 Site Standard rebuild)
+   Header, footer, live wallpaper and the music player are injected here so
+   every page matches. 100% client-side: this site collects nothing.
+   Music behavior (browser law, implemented honestly): the playlist starts
+   on page load MUTED — browsers block autoplay with sound. The first tap
+   anywhere (or the big TAP FOR SOUND button) turns the sound on. */
 (function(){
   var path = location.pathname;
-  function active(href){
-    if(href === '/') return (path === '/' || path.endsWith('index.html')) ? ' aria-current="page"' : '';
-    return path.indexOf(href.replace('.html','')) !== -1 ? ' aria-current="page"' : '';
+  var NAV = [
+    {href:'/',          label:'Home',       match:function(p){return p==='/'||p.endsWith('/index.html');}},
+    {href:'/study.html',label:'Study Hive', match:function(p){return p.indexOf('study')>-1||p.indexOf('games')>-1||p.indexOf('studio')>-1||p.indexOf('friends')>-1;}},
+    {href:'/music.html',label:'Music',      match:function(p){return p.indexOf('music')>-1;}},
+    {href:'/videos.html',label:'Videos',    match:function(p){return p.indexOf('videos')>-1;}},
+    {href:'/about.html',label:'About',      match:function(p){return p.indexOf('about')>-1;}}
+  ];
+  function navLinks(cls){
+    return NAV.map(function(n){
+      var cur = n.match(path) ? ' aria-current="page"' : '';
+      return '<a href="'+n.href+'"'+cur+'>'+n.label+'</a>';
+    }).join('');
   }
+
+  /* ----- live wallpaper + floaties ----- */
+  if(!document.querySelector('.wallpaper')){
+    var wp = document.createElement('div'); wp.className='wallpaper'; wp.setAttribute('aria-hidden','true');
+    document.body.insertBefore(wp, document.body.firstChild);
+    var fl = document.createElement('div'); fl.className='floaties'; fl.setAttribute('aria-hidden','true');
+    var glyphs=['★','♪','⚡','✦','♫','✿'];
+    var spots=[[6,12],[88,18],[14,72],[76,82],[48,8],[94,55],[30,90]];
+    fl.innerHTML = spots.map(function(s,i){
+      return '<span style="left:'+s[0]+'%;top:'+s[1]+'%;animation-delay:'+(i*1.3)+'s">'+glyphs[i%glyphs.length]+'</span>';
+    }).join('');
+    document.body.insertBefore(fl, wp.nextSibling);
+  }
+
+  /* ----- header ----- */
   var head = document.getElementById('site-head');
   if(head){
     head.innerHTML =
       '<div class="head-in">' +
-      '<a class="logo" href="/">JERICA<b>.</b>PRO<i>★</i></a>' +
-      '<button class="burger" id="burger" aria-label="Open menu">☰</button>' +
-      '<nav class="nav" id="mainnav">' +
-      '<a href="/"' + active('/') + '>Home</a>' +
-      '<a href="/games.html"' + active('/games.html') + '>🎮 Games</a>' +
-      '<a href="/studio.html"' + active('/studio.html') + '>🎨 Maker Studio</a>' +
-      '<a href="/friends.html"' + active('/friends.html') + '>💛 Friends Zone</a>' +
-      '<a class="cta" href="/#thunderdome">⚡ Dad\u2019s Game</a>' +
-      '</nav></div>';
-    var b = document.getElementById('burger'), n = document.getElementById('mainnav');
-    b.addEventListener('click', function(){ n.classList.toggle('open'); });
+      '<a class="logo" href="/" aria-label="jerica.pro — home">JER<span class="alt">I</span>CA.PRO ★</a>' +
+      '<nav class="main-nav" aria-label="Main pages">' + navLinks() + '</nav>' +
+      '<button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="popout">' +
+        '<span class="bars" aria-hidden="true"><i></i><i></i><i></i></span></button>' +
+      '</div>';
+    var pop = document.createElement('div');
+    pop.className='popout'; pop.id='popout';
+    pop.innerHTML = '<div class="scrim" data-close></div>' +
+      '<div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">' +
+      '<nav aria-label="All pages">' + navLinks() +
+      '<a href="/games.html">🎮 The Arcade</a>' +
+      '<a href="/studio.html">🎨 Maker Studio</a>' +
+      '<a href="/friends.html">💛 Friends Zone</a></nav>' +
+      '<p class="pop-note">made by Jerica — no boring allowed ★</p></div>';
+    document.body.appendChild(pop);
+    var burger = document.getElementById('burger');
+    function setPop(open){
+      pop.classList.toggle('open', open);
+      burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+      burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    }
+    burger.addEventListener('click', function(){ setPop(!pop.classList.contains('open')); });
+    pop.addEventListener('click', function(e){ if(e.target.hasAttribute('data-close')) setPop(false); });
+    document.addEventListener('keydown', function(e){ if(e.key==='Escape') setPop(false); });
   }
+
+  /* ----- footer ----- */
   var foot = document.getElementById('site-foot');
   if(foot){
     foot.innerHTML =
-      '<div class="wrap">' +
-      '<div class="fbrand">JERICA.PRO ★ MADE BY JERICA, FOR JERICA (AND HER CREW)</div>' +
-      '<div><a href="/">Home</a> · <a href="/games.html">Games</a> · <a href="/studio.html">Maker Studio</a> · ' +
-      '<a href="/friends.html">Friends Zone</a> · <a href="https://thunderdome.store">Thunderdome — my dad\u2019s game</a></div>' +
-      '<div class="privacy-note">🔒 This site collects <b>nothing</b>. No accounts, no sign-ups, no ads, no trackers. ' +
-      'Everything you make lives on your own device. Make it, download it, show it. 💛</div>' +
-      '</div>';
+      '<div class="td-promo reveal" id="thunderdome"><span class="big">⚡ THUNDERDOME</span>' +
+      '<span>Dad\u2019s game is coming — the big public launch lands <b>November 2, 2026</b>. Join the beta free:</span>' +
+      '<a class="btn pink" href="https://thunderdome.store">PLAY THE BETA</a></div>' +
+      '<div class="foot-in">' +
+      '<div><h3>JERICA.PRO</h3><p class="dim">Jerica\u2019s corner of the internet — games, makers, study tools and loud music. Made by Jerica, for Jerica and her crew.</p></div>' +
+      '<div><h3>THIS SITE</h3><ul>' +
+      '<li><a href="/">Home</a></li><li><a href="/study.html">Study Hive</a></li>' +
+      '<li><a href="/music.html">Music</a></li><li><a href="/videos.html">Videos</a></li>' +
+      '<li><a href="/about.html">About</a></li><li><a href="/games.html">The Arcade</a></li>' +
+      '<li><a href="/studio.html">Maker Studio</a></li><li><a href="/friends.html">Friends Zone</a></li></ul></div>' +
+      '<div><h3>THE FAMILY EMPIRE</h3><ul>' +
+      '<li><a href="https://3000studios.vip">3000 Studios</a></li>' +
+      '<li><a href="https://www.youtube.com/@3000Studio">▶ YouTube — 3000 Studios</a></li>' +
+      '<li><a href="https://open.spotify.com/artist/6VVHgvCMlHO6Ah7dkAIlik">🎧 Spotify — 3000 Studios</a></li>' +
+      '<li><a href="https://jadon.pro">Jadon\u2019s Site — jadon.pro</a></li>' +
+      '<li><a href="https://swain.website">The Swain Standard</a></li>' +
+      '<li><a href="https://thunderdome.store">Thunderdome (the game)</a></li>' +
+      '<li><a href="https://boughtitonline.com">The 3000 Studios Store</a></li></ul></div>' +
+      '</div>' +
+      '<p class="foot-fine">🔒 This site collects <b>nothing</b> — no accounts, no sign-ups, no comments, no uploads. ' +
+      'Everything you make lives on your own device. Ads, when shown, are set to child-directed / non-personalized mode. ' +
+      'Music: “Entertain Us” &amp; “Motel Television” by 3000 Studios (Dad\u2019s studio). Fan talk about bands is just fan talk — no band audio, lyrics or artwork.</p>';
   }
+
+  /* ----- scroll reveal ----- */
+  var revealEls = document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window && revealEls.length){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } });
+    }, {threshold:.12});
+    revealEls.forEach(function(el){ io.observe(el); });
+  } else {
+    revealEls.forEach(function(el){ el.classList.add('in'); });
+  }
+
+  /* ----- button ripple / click effect ----- */
+  document.addEventListener('click', function(e){
+    var btn = e.target.closest ? e.target.closest('.btn') : null;
+    if(!btn) return;
+    var r = btn.getBoundingClientRect();
+    var rip = document.createElement('span'); rip.className='ripple';
+    var size = Math.max(r.width, r.height);
+    rip.style.width = rip.style.height = size + 'px';
+    rip.style.left = (e.clientX - r.left - size/2) + 'px';
+    rip.style.top = (e.clientY - r.top - size/2) + 'px';
+    btn.appendChild(rip);
+    setTimeout(function(){ rip.remove(); }, 600);
+  });
+
+  /* ----- MUSIC PLAYER ----- */
+  var TRACKS = [
+    {title:'Entertain Us',    src:'/audio/entertain-us.mp3'},
+    {title:'Motel Television',src:'/audio/motel-television.mp3'}
+  ];
+  var player = document.createElement('div');
+  player.className='player'; player.id='player';
+  player.setAttribute('role','region');
+  player.setAttribute('aria-label','Music player — songs by 3000 Studios, Jerica\u2019s dad\u2019s studio');
+  player.innerHTML =
+    '<div class="player-in">' +
+    '<div class="disc" aria-hidden="true">🎵</div>' +
+    '<div class="now"><div class="t" id="plTitle" aria-live="polite">Entertain Us</div>' +
+    '<div class="a">3000 Studios · plays on every page</div>' +
+    '<progress id="plProg" value="0" max="100" aria-label="Song progress"></progress></div>' +
+    '<button class="pbtn" id="plPrev" type="button" aria-label="Previous song">⏮</button>' +
+    '<button class="pbtn main" id="plPlay" type="button" aria-label="Play or pause the music">▶</button>' +
+    '<button class="pbtn" id="plNext" type="button" aria-label="Next song">⏭</button>' +
+    '<button class="sound-cta" id="plSound" type="button" aria-pressed="false">🔊 TAP FOR SOUND</button>' +
+    '</div>';
+  document.body.appendChild(player);
+  var audio = document.createElement('audio');
+  audio.id='plAudio'; audio.preload='metadata'; audio.setAttribute('playsinline','');
+  document.body.appendChild(audio);
+
+  var idx = 0, soundOn = false;
+  var elTitle = document.getElementById('plTitle'),
+      elProg  = document.getElementById('plProg'),
+      elPlay  = document.getElementById('plPlay'),
+      elSound = document.getElementById('plSound');
+
+  function load(i, autoplay){
+    idx = (i + TRACKS.length) % TRACKS.length;
+    audio.src = TRACKS[idx].src;
+    elTitle.textContent = TRACKS[idx].title;
+    elProg.value = 0;
+    if(autoplay) audio.play().catch(function(){});
+  }
+  function setSound(on){
+    soundOn = on;
+    audio.muted = !on;
+    elSound.setAttribute('aria-pressed', on ? 'true' : 'false');
+    elSound.textContent = on ? '🔊 SOUND ON!' : '🔊 TAP FOR SOUND';
+    elSound.classList.toggle('off', on);
+  }
+  audio.muted = true;               /* starts muted — browsers block autoplay sound */
+  load(0, true);                    /* starts playing (muted) on load */
+  audio.addEventListener('playing', function(){ player.classList.add('playing'); elPlay.textContent='⏸'; });
+  audio.addEventListener('pause',   function(){ player.classList.remove('playing'); elPlay.textContent='▶'; });
+  audio.addEventListener('ended',   function(){ load(idx+1, true); });
+  audio.addEventListener('timeupdate', function(){
+    if(audio.duration) elProg.value = Math.round(audio.currentTime / audio.duration * 100);
+  });
+  elPlay.addEventListener('click', function(){
+    if(audio.paused){ if(!soundOn) setSound(true); audio.play().catch(function(){}); }
+    else audio.pause();
+  });
+  document.getElementById('plPrev').addEventListener('click', function(){ load(idx-1, true); });
+  document.getElementById('plNext').addEventListener('click', function(){ load(idx+1, true); });
+  elSound.addEventListener('click', function(){
+    setSound(!soundOn);
+    if(soundOn && audio.paused) audio.play().catch(function(){});
+  });
+  /* first tap/click anywhere turns the sound on (once) */
+  document.addEventListener('pointerdown', function firstTap(){
+    if(!soundOn){ setSound(true); if(audio.paused) audio.play().catch(function(){}); }
+    document.removeEventListener('pointerdown', firstTap);
+  });
 })();
 
-/* tiny helpers shared by games + makers */
+/* tiny helpers shared by games + makers (kept from the original build) */
 window.JP = {
   $: function(sel, el){ return (el||document).querySelector(sel); },
   $$: function(sel, el){ return Array.prototype.slice.call((el||document).querySelectorAll(sel)); },
