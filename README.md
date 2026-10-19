@@ -12,8 +12,8 @@ Jerica's own corner of the internet: a sticker-notebook, alternative/skater pers
 ## Safety design (this is a child's site — non-negotiable)
 
 - **Zero personal-information collection.** No forms that submit, no accounts, no sign-ups, no comments, no chat, no uploads to any server. Everything runs client-side; high scores live in the visitor's own `localStorage`.
-- **No ads, no affiliate links, no analytics, no third-party embeds or requests.** All assets are self-hosted. The only outbound link is the Thunderdome anchor. A CSP in `public/_headers` enforces `default-src 'self'`.
-- Music content is fan enthusiasm in original words only — no copyrighted lyrics, album art, logos, or audio.
+- **Ads (2026 Site Standard):** AdSense is loaded in **child-directed / non-personalized mode only** (`data-tag-for-child-directed-treatment`, `requestNonPersonalizedAds=1`); `public/ads.txt` carries the house publisher line. No analytics, no affiliate links, no third-party embeds beyond the AdSense loader and Google Fonts. The CSP in `public/_headers` allows only those.
+- Music content is fan enthusiasm in original words only — no copyrighted lyrics, album art, logos, or band audio. The songs that play on the site are 3000 Studios' own "Entertain Us" and "Motel Television" (self-hosted in `public/audio/`).
 
 ## Tech
 
@@ -22,5 +22,6 @@ Static HTML/CSS/vanilla JS in `public/` — no build step, no framework, no depe
 ## Production
 
 - Domain: `jerica.pro` · Hosting: Cloudflare Workers Static Assets (`wrangler.jsonc`, Worker `jerica-pro`)
-- CI/CD: push to `main` runs `.github/workflows/deploy.yml` (secrets: `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`)
-- **Rebuild of 2026-10-13 lives on branch `jerica-rebuild-2026-10-13` — see `DEPLOY-NOTE-2026-10-13.md` before deploying.**
+- **Deploy path (current): direct `npx wrangler deploy` from the repo root** with the fleet Cloudflare token — used for the 2026-10-19 Site Standard rebuild (Version ID `023a9843-6f16-4422-8b02-88e496e85d24`). The `.github/workflows/deploy.yml` (push-to-`main`) exists but GitHub Actions is **off-limits** under the Boss's standing law (owed balance) — do not rely on it.
+- Pages: `/` Home · `/study.html` Study Hive · `/music.html` Music · `/videos.html` Videos · `/about.html` About · plus the Arcade (`/games.html`), Maker Studio (`/studio.html`) and Friends Zone (`/friends.html`).
+- The music player (injected by `app.js` on every page) starts the playlist **muted** on load — browsers block autoplay-with-sound; the first tap anywhere turns sound on. Never "fix" this by faking autoplay sound.
