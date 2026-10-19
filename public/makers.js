@@ -154,7 +154,7 @@ function roundRect(ctx, x, y, w, h, r){
     'Thrash':   {main:'#ff5252', second:'#f5efe2', deco:'bolts'},
     'Checker':  {main:'#f5efe2', second:'#c9ff2f', deco:'checker'}
   };
-  var S = { title: 'LOUD & PROUD', sub: 'one night only · my room · bring snacks',
+  var S = { title: 'LOUD & PROUD', sub: 'one night only · bring snacks',
             vibe: 'Pop-Punk', bands: 'All three', bg: '#141418' };
   function draw(){
     var V = VIBES[S.vibe];

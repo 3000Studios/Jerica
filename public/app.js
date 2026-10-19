@@ -38,7 +38,7 @@
   if(head){
     head.innerHTML =
       '<div class="head-in">' +
-      '<a class="logo" href="/" aria-label="jerica.pro — home">JER<span class="alt">I</span>CA.PRO ★</a>' +
+      '<a class="logo" href="/" aria-label="jerica.pro — home">JER<span class="alt">I</span>CA.PRO 🦇</a>' +
       '<nav class="main-nav" aria-label="Main pages">' + navLinks() + '</nav>' +
       '<button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="popout">' +
         '<span class="bars" aria-hidden="true"><i></i><i></i><i></i></span></button>' +
@@ -51,7 +51,7 @@
       '<a href="/games.html">🎮 The Arcade</a>' +
       '<a href="/studio.html">🎨 Maker Studio</a>' +
       '<a href="/friends.html">💛 Friends Zone</a></nav>' +
-      '<p class="pop-note">made by Jerica — no boring allowed ★</p></div>';
+      '<p class="pop-note">stay spooky — no boring allowed 🦇</p></div>';
     document.body.appendChild(pop);
     var burger = document.getElementById('burger');
     function setPop(open){
